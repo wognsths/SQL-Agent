@@ -1,47 +1,42 @@
 import os
-from pydantic_settings import BaseSettings
-from dotenv import load_dotenv
-
-load_dotenv()
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    """Setting application"""
-
-    # PROJECT INFO
+    # ---- Project ----
     PROJECT_NAME: str = "Text2SQL A2A"
     VERSION: str = "0.1.0"
 
-    # OPENAI
-    openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
-    openai_model: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    # ---- OpenAI ----
+    OPENAI_API_KEY: str
+    OPENAI_MODEL: str = "gpt-4o-mini"
 
-    # DATABASE
-    POSTGRES_USER: str = os.getenv("POSTGRES_USER", "postgres")
-    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "")
-    POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "localhost")
-    POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", "5432")
-    POSTGRES_DB: str = os.getenv("POSTGRES_DB", "postgres")
+    # ---- Database ----
+    POSTGRES_USER: str = "postgres"
+    POSTGRES_PASSWORD: str = ""
+    POSTGRES_HOST: str = "localhost"
+    POSTGRES_PORT: str = "5432"
+    POSTGRES_DB: str = "postgres"
 
     @property
-    def DATABASE_URL(self) -> str:
-        "Generate database URL"
-        return f"postgreaql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
-    
-    # API setting
-    API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
-    API_HOST: int = int(os.getenv("API_PORT", "8000"))
+    def DATABASE_URL(self) -> str:  # noqa: N802
+        return (
+            f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
+            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        )
 
-    # Output file directory
+    # ---- API ----
+    API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
+    API_PORT: int = int(os.getenv("API_PORT", "8000"))
+
+    # ---- Output ----
     OUTPUT_DIR: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), "outputs")
 
-    # Set logging
+    # ---- Logging ----
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    # Pydantic‑settings v2 style
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
+
 
 settings = Settings()
-
-# Make directory
-os.makedirs(settings.output_dir, exist_ok=True)
+os.makedirs(settings.OUTPUT_DIR, exist_ok=True)
