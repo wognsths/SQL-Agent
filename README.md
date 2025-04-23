@@ -23,7 +23,7 @@ This project implements a modular Agent-to-Agent (A2A) architecture for processi
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.12+
 - Google API key (for Gemini model)
 
 ### Installation
