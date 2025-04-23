@@ -1,0 +1,23 @@
+# Core dependencies
+langchain>=0.1.0
+langchain-core>=0.1.0
+langchain-google-genai>=0.0.5
+langgraph>=0.0.30
+pydantic>=2.5.0
+starlette>=0.27.0
+uvicorn>=0.23.0
+sse-starlette>=1.6.0
+python-dotenv>=1.0.0
+click>=8.1.0
+
+# Excel generation
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Database connectivity
+sqlalchemy>=2.0.0
+
+# A2A specific
+httpx>=0.25.0
+cryptography>=41.0.0
+jwcrypto>=1.5.0
