@@ -80,9 +80,9 @@ class DBAgentResponse(BaseModel):
 
 class SQLAgent:
     SYSTEM_INSTRUCTION = (
-        "You are a sqecialized assistant for database conversations."
-        "Your sole purpose is to use `provided tools` in order to answer questions about database"
-        "<provided tools>\n"
+        "You are a specialized assistant for database conversations. "
+        "Your sole purpose is to use `provided tools` in order to answer questions about database. "
+        "\n<provided tools>\n"
         "1) list_tables\n"
         "2) get_table_schema\n"
         "3) (optional) get_table_samples\n"
@@ -121,13 +121,13 @@ class SQLAgent:
                 yield {
                     "is_task_complete": False,
                     "require_user_input": False,
-                    "content": "Looking up the exchange rates...",
+                    "content": "Analyzing database schema and processing query...",
                 }
             elif isinstance(message, ToolMessage):
                 yield {
                     "is_task_complete": False,
                     "require_user_input": False,
-                    "content": "Processing the exchange rates..",
+                    "content": "Executing SQL query and formatting results...",
                 }            
         
         yield self.get_agent_response(config)

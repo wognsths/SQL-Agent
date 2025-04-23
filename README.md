@@ -45,6 +45,26 @@ This project implements a modular Agent-to-Agent (A2A) architecture for processi
    # Edit .env to add your Google API key
    ```
 
+   Your `.env` file should contain:
+   ```
+   # API Keys
+   GOOGLE_API_KEY=your_google_api_key_here
+
+   # Database Configuration
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=your_database_name
+   DB_USER=your_database_user
+   DB_PASSWORD=your_database_password
+
+   # Agent Settings
+   SQL_AGENT_PORT=10000
+   EXCEL_AGENT_PORT=10001
+
+   # Output Settings
+   OUTPUT_DIR=./outputs
+   ```
+
 ### Running the SQL-to-Excel Workflow
 
 For the complete workflow (SQL query → Excel export):
