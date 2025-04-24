@@ -1,6 +1,6 @@
 # SQL Agent Web Application
 
-SQL Agent Web Application은 A2A(Agent-to-Agent) 프로토콜을 사용하여 자연어 쿼리를 SQL로 변환하고 데이터베이스에서 결과를 조회할 수 있는 웹 인터페이스를 제공합니다.
+SQL Agent Web Application provides a web interface for converting natural language queries to SQL and retrieving results from databases using the A2A (Agent-to-Agent) protocol.
 
 ## Overview
 
@@ -17,92 +17,104 @@ This project implements a modular Agent-to-Agent (A2A) architecture for processi
 - Query execution and result retrieval
 - Automated Excel report generation with various styling options
 - A2A standard protocol for agent communication
-- Command-line and API interfaces
+- Web interface and API endpoints
+- Docker support for easy deployment
 
-## Quick Start
+## Installation and Setup
 
-### Prerequisites
+### Environment Configuration
 
-- Python 3.8+
-- Google API key (for Gemini model)
-
-### Installation
-
-1. Clone the repository:
+1. Create a `.env` file for environment variables:
    ```
-   git clone https://github.com/yourusername/SQL-Agent.git
-   cd SQL-Agent
+   # SQL Agent Web Interface Environment Variables
+   SQL_AGENT_URL=http://localhost:10000
+   PORT=8000
+   HOST=0.0.0.0
+   GOOGLE_API_KEY=your_google_api_key_here
+   FLASK_DEBUG=True
+   
+   # Database Configuration
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=your_database
+   DB_USER=your_username
+   DB_PASSWORD=your_password
    ```
+   
+2. Add your Google API Key to the `.env` file
+   - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 
-2. Install dependencies:
+### Local Development Environment
+
+1. Install required packages:
    ```
    pip install -r requirements.txt
    ```
 
-2. SQL Agent 서버 실행:
+2. Run the SQL Agent server:
    ```
    python -m api.agents.sql_agent
    ```
 
-3. 웹 인터페이스 실행:
+3. Run the web interface:
    ```
    python -m api.web
    ```
 
-4. 브라우저에서 http://localhost:8000 접속
+4. Access the web interface at http://localhost:8000
 
-### Docker를 통한 배포
+### Docker Deployment
 
-1. Docker와 Docker Compose 설치
+1. Install Docker and Docker Compose
 
-2. Docker Compose를 통한 빌드 및 실행:
+2. Build and run using Docker Compose:
    ```
    docker-compose up -d
    ```
 
-3. 브라우저에서 http://localhost:8000 접속
+3. Access the web interface at http://localhost:8000
 
-## 프로젝트 구조
+## Project Structure
 
-- `api/agents/`: A2A 프로토콜을 구현한 SQL Agent
-- `api/common/`: A2A 프로토콜 구현을 위한 공통 모듈
-- `api/web/`: 웹 인터페이스 모듈
-- `api/core/`: 데이터베이스 스키마 및 연결 관리
-- `Dockerfile`: 웹 인터페이스용 Docker 설정
-- `Dockerfile.sql_agent`: SQL Agent용 Docker 설정
-- `docker-compose.yml`: Docker Compose 설정
+- `api/agents/`: SQL Agent implementing the A2A protocol
+- `api/common/`: Common modules for A2A protocol implementation
+- `api/web/`: Web interface module
+- `api/core/`: Database schema and connection management
+- `Dockerfile`: Docker configuration for web interface
+- `Dockerfile.sql_agent`: Docker configuration for SQL Agent
+- `docker-compose.yml`: Docker Compose configuration
 
-## 환경 변수
+## Environment Variables
 
-주요 환경 변수는 다음과 같습니다:
+Main environment variables:
 
-- `SQL_AGENT_URL`: SQL Agent 서버 URL
-- `PORT`: 웹 서버 포트
-- `HOST`: 웹 서버 호스트
-- `GOOGLE_API_KEY`: Google API 키
-- `FLASK_DEBUG`: 디버그 모드 설정
+- `SQL_AGENT_URL`: SQL Agent server URL
+- `PORT`: Web server port
+- `HOST`: Web server host
+- `GOOGLE_API_KEY`: Google API key
+- `FLASK_DEBUG`: Debug mode setting
 
-### 데이터베이스 환경 변수
+### Database Environment Variables
 
-- `DB_HOST`: 데이터베이스 호스트 (기본값: localhost)
-- `DB_PORT`: 데이터베이스 포트 (기본값: 5432)
-- `DB_NAME`: 데이터베이스 이름
-- `DB_USER`: 데이터베이스 사용자 이름
-- `DB_PASSWORD`: 데이터베이스 비밀번호
+- `DB_HOST`: Database host (default: localhost)
+- `DB_PORT`: Database port (default: 5432)
+- `DB_NAME`: Database name
+- `DB_USER`: Database username
+- `DB_PASSWORD`: Database password
 
-## 사용 방법
+## Usage
 
-1. 쿼리 입력 상자에 자연어 질문 또는 SQL 쿼리 입력
-   예: "모든 사용자의 목록을 보여줘" 또는 "SELECT * FROM users"
+1. Enter a natural language question or SQL query in the input box
+   Example: "Show me all users" or "SELECT * FROM users"
 
-2. "Submit Query" 버튼 클릭
+2. Click the "Submit Query" button
 
-3. 결과 테이블 확인
+3. View the results in the table
 
-4. "Download Excel" 버튼을 클릭하여 결과를 엑셀 파일로 다운로드
+4. Click the "Download Excel" button to download the results as an Excel file
 
-## 문제 해결
+## Troubleshooting
 
-- SQL Agent 연결 오류: SQL Agent 서버가 실행 중인지 확인
-- 데이터베이스 연결 오류: 데이터베이스 설정 확인
-- Docker 실행 오류: `docker-compose logs`로 로그 확인
+- SQL Agent connection error: Verify that the SQL Agent server is running
+- Database connection error: Check database configuration
+- Docker execution error: Check logs with `docker-compose logs`
