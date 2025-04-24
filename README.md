@@ -2,40 +2,39 @@
 
 SQL Agent Web Application은 A2A(Agent-to-Agent) 프로토콜을 사용하여 자연어 쿼리를 SQL로 변환하고 데이터베이스에서 결과를 조회할 수 있는 웹 인터페이스를 제공합니다.
 
-## 주요 기능
+## Overview
 
-- 자연어 질문을 SQL 쿼리로 변환
-- 데이터베이스 쿼리 결과 표시
-- 결과 엑셀 파일 다운로드
-- Docker를 통한 쉬운 배포
+This project implements a modular Agent-to-Agent (A2A) architecture for processing natural language queries against databases:
 
-## 설치 및 실행 방법
+1. **SQL Agent** - Converts natural language to SQL queries and executes them against a database
+2. **Excel Agent** - Formats SQL results into professional Excel spreadsheets
+3. **Workflow Integration** - Connects these agents for end-to-end processing
 
-### 환경 설정
+## Features
 
-1. 환경 변수 설정을 위해 `.env` 파일 생성:
+- Natural language to SQL conversion
+- Database schema exploration
+- Query execution and result retrieval
+- Automated Excel report generation with various styling options
+- A2A standard protocol for agent communication
+- Command-line and API interfaces
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.8+
+- Google API key (for Gemini model)
+
+### Installation
+
+1. Clone the repository:
    ```
-   # SQL Agent Web Interface Environment Variables
-   SQL_AGENT_URL=http://localhost:10000
-   PORT=8000
-   HOST=0.0.0.0
-   GOOGLE_API_KEY=your_google_api_key_here
-   FLASK_DEBUG=True
-   
-   # Database Configuration
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_NAME=your_database
-   DB_USER=your_username
-   DB_PASSWORD=your_password
+   git clone https://github.com/yourusername/SQL-Agent.git
+   cd SQL-Agent
    ```
-   
-2. Google API Key를 발급받아 `.env` 파일에 추가
-   - [Google AI Studio](https://makersuite.google.com/app/apikey)에서 API 키 발급
 
-### 로컬 개발 환경
-
-1. 필요한 패키지 설치:
+2. Install dependencies:
    ```
    pip install -r requirements.txt
    ```
