@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  sql_agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.sql_agent
+    container_name: sql-agent
+    ports:
+      - "10000:10000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=10000
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - DB_HOST=${DB_HOST:-localhost}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./outputs:/app/outputs
+    networks:
+      - sql-agent-network
+    restart: unless-stopped
+
+  web_interface:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sql-agent-web
+    ports:
+      - "8000:8000"
+    environment:
+      - SQL_AGENT_URL=http://sql_agent:10000
+      - HOST=0.0.0.0
+      - PORT=8000
+      - FLASK_DEBUG=False
+    depends_on:
+      - sql_agent
+    networks:
+      - sql-agent-network
+    restart: unless-stopped
+
+networks:
+  sql-agent-network:
+    driver: bridge 

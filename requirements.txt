@@ -13,6 +13,7 @@ click>=8.1.0
 # Excel generation
 pandas>=2.0.0
 openpyxl>=3.1.0
+xlsxwriter>=3.1.0
 
 # Database connectivity
 sqlalchemy>=2.0.0
@@ -21,3 +22,6 @@ sqlalchemy>=2.0.0
 httpx>=0.25.0
 cryptography>=41.0.0
 jwcrypto>=1.5.0
+
+# Web interface
+flask>=2.3.0

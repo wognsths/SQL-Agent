@@ -1,0 +1,28 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application
+COPY . .
+
+# Set environment variables
+ENV HOST=0.0.0.0
+ENV PORT=10000
+# Database defaults
+ENV DB_HOST=localhost
+ENV DB_PORT=5432
+ENV DB_NAME=your_database
+ENV DB_USER=your_username
+ENV DB_PASSWORD=your_password
+
+# Expose the port the app runs on
+EXPOSE 10000
+
+# Command to run the SQL Agent
+CMD ["python", "-m", "api.agents.sql_agent"] 

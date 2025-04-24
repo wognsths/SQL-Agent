@@ -7,15 +7,15 @@ class Settings(BaseSettings):
     VERSION: str = "0.1.0"
 
     # ---- OpenAI ----
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4o-mini"
 
     # ---- Database ----
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_PASSWORD: str = ""
-    POSTGRES_HOST: str = "localhost"
-    POSTGRES_PORT: str = "5432"
-    POSTGRES_DB: str = "postgres"
+    POSTGRES_USER: str = os.getenv("DB_USER", "postgres")
+    POSTGRES_PASSWORD: str = os.getenv("DB_PASSWORD", "")
+    POSTGRES_HOST: str = os.getenv("DB_HOST", "localhost")
+    POSTGRES_PORT: str = os.getenv("DB_PORT", "5432")
+    POSTGRES_DB: str = os.getenv("DB_NAME", "postgres")
 
     @property
     def DATABASE_URL(self) -> str:  # noqa: N802
@@ -25,8 +25,8 @@ class Settings(BaseSettings):
         )
 
     # ---- API ----
-    API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
-    API_PORT: int = int(os.getenv("API_PORT", "8000"))
+    API_HOST: str = os.getenv("HOST", "0.0.0.0")
+    API_PORT: int = int(os.getenv("PORT", "8000"))
 
     # ---- Output ----
     OUTPUT_DIR: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), "outputs")
